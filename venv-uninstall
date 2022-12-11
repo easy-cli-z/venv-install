@@ -1,35 +1,35 @@
 #!/bin/bash
 
-# exit when any command fails
+# выйти, если какая-либо команда не удалась
 set -e
 
 if (( $# != 2 )); then
-    echo "Illegal number of parameters, usage: venv-uninstall <PACKAGE> <COMMAND>"
+    echo "Недопустимое количество параметров, использование: venv-uninstall <ПАКЕТ> <КОМАНДА>"
     exit 1
 fi
  
 PACKAGE=$1
 COMMAND=$2
 
-echo "Uninstalling package '$PACKAGE' with command '$COMMAND'..."
+echo "Удаление пакета '$PACKAGE' с помощью команды '$COMMAND'..."
 
 VENV_PATH=~/.venvs/$PACKAGE
 BIN_PATH=$HOME/.local/bin
 COMMAND_BIN_PATH=$BIN_PATH/$COMMAND
 
-# check if venv exists
+# проверить, существует ли venv
 if test -d "$VENV_PATH"; then
-  echo "Removing venv '$VENV_PATH' ..."
+  echo "Удаление venv '$VENV_PATH' ..."
   rm -r $VENV_PATH
 else
-  echo "VENV directory doesn't exist, ignoring"
+  echo "Каталог VENV не существует, игнорируя"
 fi
 
 if test -L "$COMMAND_BIN_PATH"; then
-  echo "Removing '$COMMAND_BIN_PATH' ..."
+  echo "Удаление '$COMMAND_BIN_PATH' ..."
   rm $COMMAND_BIN_PATH
 else
-  echo "$COMMAND_BIN_PATH file doesn't exist, ignoring"
+  echo "$COMMAND_BIN_PATH файл не существует, игнорирую"
 fi
 
-echo "Done"
+echo "Сделанный"
